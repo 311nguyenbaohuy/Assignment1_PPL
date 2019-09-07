@@ -24,15 +24,18 @@ options{
 	language=Python3;
 }
 
-program  : mctype 'main' LB RB LP body? RP EOF ;
+// program  : many_decls? mctype 'main' LB RB LP body? RP EOF ;
+program  : many_decls? mctype 'main' LB RB block_stmt EOF ;
 
-mctype: INTTYPE | VOIDTYPE ;
 
-body: funcall SEMI;
+// body: funcall SEMI;
+body    
+            : (stmt)+
+            ;
 
-exp: funcall | INTLIT ;
+// exp: funcall | INTLIT ;
 
-funcall: ID LB exp? RB ;
+// funcall: ID LB exp? RB ;
 
 LB: '(' ;
 
@@ -147,6 +150,8 @@ BOOLLIT
 
 STRINGLIT: '"'~[\b\f\r\n\t\\"]*'"';
 
+ID: [a-zA-Z_][a-zA-Z0-9_]* ;
+
 lit         : INTLIT 
             | FLOATLIT 
             | BOOLLIT 
@@ -160,53 +165,175 @@ primary_type
             | STRINGTYPE
             ;
 
-ID: [a-zA-Z_][a-zA-Z0-9_]* ;
+mctype
+            : primary_type
+            | VOIDTYPE
+            | output_ptr_type
+            ;
+
+
 
 // Chua xet truong hop int a [0]
+// con TH int a [b]
 input_ptr_type
-            : primary_type ID LSB INTLIT RSB
+            : primary_type element
             ;
 
 output_ptr_type
-            : primary_type ID LSB RSB
+            : primary_type LSB RSB
             ;
 
 element
             : ID LSB INTLIT RSB
             ;
 
-// Chua xet truong hop int a [0]
-decl_var
-            : primary_type ID SEMI
-            | input_ptr_type SEMI
-            ;
- 
-expr   
-            : LB expr RB 
-            | <assoc=right>SUB_OP expr
-            | NOT_OP expr
-            | expr DIV_OP expr
-            | expr MUL_OP expr
-            | expr MODULUS_OP expr
-            | expr ADD_OP expr
-            | expr SUB_OP expr
-            | expr1 LESS_EQUAL_OP expr1
-            | expr1 LESS_OP expr1
-            | expr1 GREATER_EQUAL_OP expr1
-            | expr1 GREATER_OP expr1
-            | expr1 EQUAL_OP expr1
-            | expr1 NOT_EQUAL_OP expr1
-            | expr1
+
+many_decls 
+            : decl (decl)*
             ;
 
+decl
+            : var_decl 
+            | func_decl
+            ;
+
+var_decl
+            : primary_type many_vars SEMI;
+
+many_vars    
+            : var (COMMA var)*;
+
+var 
+            : ID 
+            | element
+            ;            
+
+func_decl
+            : mctype ID LB list_params RB block_stmt
+            ;
+
+list_params
+            : (param_decl (COMMA param_decl)*)?
+            ;
+
+param_decl  
+            : primary_type ID
+            | primary_type ID LSB RSB
+            ;
+
+call_func
+            : ID LB list_exprs RB
+            ;
+
+list_exprs
+            : (expr (COMMA expr)*)?
+            ;
+
+func_stmt  
+            : call_func SEMI
+            ;
+
+if_stmt
+            : match_stmt 
+            | unmatch_stmt
+            ;
+
+match_stmt 
+            : IF LB expr RB match_stmt ELSE match_stmt
+            | other 
+            ;
+
+unmatch_stmt
+            : IF LB expr RB match_stmt ELSE unmatch_stmt
+            | IF LB expr RB stmt
+            | other
+            ;
+
+do_while_stmt
+            : DO (stmt)+ WHILE expr SEMI
+            ; 
+
+for_stmt
+            : FOR LB expr SEMI expr SEMI expr RB stmt
+            ;
+
+break_stmt
+            : BREAK SEMI
+            ;
+
+continue_stmt
+            : CONTINUE SEMI
+            ;
+
+return_void
+            : RETURN SEMI
+            ;
+
+return_expr
+            : RETURN expr SEMI
+            ;
+
+return_stmt
+            : return_expr | return_void
+            ;
+
+expr_stmt
+            : expr SEMI
+            ;   
+
+other       
+            : func_stmt
+            | var_decl      
+            | do_while_stmt
+            | for_stmt
+            | break_stmt
+            | continue_stmt
+            | return_stmt
+            | expr_stmt
+            ;
+
+stmt
+            : other
+            | if_stmt       
+            ;
+
+block_stmt
+            : LP (stmt|block_stmt)* RP
+            ;
+expr   
+            : LB expr RB 
+            | expr1 LSB expr1 RSB
+            | expr1
+            ;
 expr1
-            : expr1 AND_OP expr1
-            | expr1 OR_OP expr1
-            | <assoc=right> expr1 ASSIGN_OP expr
+            : <assoc=right>SUB_OP expr1
+            | NOT_OP expr1
+            | expr1 DIV_OP expr1
+            | expr1 MUL_OP expr1
+            | expr1 MODULUS_OP expr1
+            | expr1 ADD_OP expr1
+            | expr1 SUB_OP expr1
+            | expr2 LESS_EQUAL_OP expr2
+            | expr2 LESS_OP expr2
+            | expr2 GREATER_EQUAL_OP expr2
+            | expr2 GREATER_OP expr2
+            | expr2 EQUAL_OP expr2
+            | expr2 NOT_EQUAL_OP expr2
+            | expr2
+            ;
+
+expr2   
+            : expr2 AND_OP expr2
+            | expr2 OR_OP expr2
+            | <assoc=right> expr2 ASSIGN_OP expr
             | op
             ;
 op          
-            : funcall 
+            : call_func
             | lit 
             | ID 
             | element;  
+
+
+
+// chua check TH (-a + b + (a + 1)) va { stmt { stmt} stmt }
