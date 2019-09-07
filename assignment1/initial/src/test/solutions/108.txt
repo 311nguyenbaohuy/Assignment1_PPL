@@ -1,1 +1,1 @@
-47 n,47 world,<EOF>
+49 "Hello \n world",<EOF>

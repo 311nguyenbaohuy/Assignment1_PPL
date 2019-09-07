@@ -56,9 +56,9 @@ COMMA: ',';
 WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
 
 
-// ERROR_CHAR: .;
-// UNCLOSE_STRING: .;
-// ILLEGAL_ESCAPE: .;
+ERROR_CHAR: [?~`@#$^:\\.'];
+UNCLOSE_STRING: '"' ('\\' [bfrnt"\\] | ~[\b\f\r\n\t\\"])*;
+ILLEGAL_ESCAPE: '"' ('\\'~[bfnrt"] | ~'\\')*;
 
 // Comment
 
@@ -148,11 +148,12 @@ BOOLLIT
             | FALSE
             ;
 
-STRINGLIT: '"'~[\b\f\r\n\t\\"]*'"';
+STRINGLIT: '"'('\\' [bfrnt"\\] | ~[\b\f\r\n\t\\"])*'"';
 
 ID: [a-zA-Z_][a-zA-Z0-9_]* ;
 
-lit         : INTLIT 
+lit         
+            : INTLIT 
             | FLOATLIT 
             | BOOLLIT 
             | STRINGLIT
@@ -265,16 +266,16 @@ continue_stmt
             : CONTINUE SEMI
             ;
 
-return_void
-            : RETURN SEMI
-            ;
+// return_void
+//             : RETURN SEMI
+//             ;
 
-return_expr
-            : RETURN expr SEMI
-            ;
+// return_expr
+//             : RETURN expr SEMI
+//             ;
 
 return_stmt
-            : return_expr | return_void
+            : RETURN expr? SEMI
             ;
 
 expr_stmt

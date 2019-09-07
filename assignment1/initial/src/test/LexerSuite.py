@@ -46,3 +46,7 @@ class LexerSuite(unittest.TestCase):
     def test_int_type(self):
         """test integers"""
         self.assertTrue(TestLexer.checkLexeme("int","int, <EOF>",113))
+        
+    def test_unclose(self):
+        """test integers"""
+        self.assertTrue(TestLexer.checkLexeme(" abcb' ","int, <EOF>",114))
