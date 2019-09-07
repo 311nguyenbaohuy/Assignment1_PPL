@@ -56,9 +56,9 @@ COMMA: ',';
 WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
 
 
-ERROR_CHAR: [?~`@#$^:\\.'];
+ERROR_CHAR: [?~`@#$^:\\.'"];
 UNCLOSE_STRING: '"' ('\\' [bfrnt"\\] | ~[\b\f\r\n\t\\"])*;
-ILLEGAL_ESCAPE: '"' ('\\'~[bfnrt"] | ~'\\')*;
+ILLEGAL_ESCAPE: '"' ('\\'~[bfnrt"\\] | ~'\\')*;
 
 // Comment
 
@@ -338,3 +338,4 @@ op
 
 
 // chua check TH (-a + b + (a + 1)) va { stmt { stmt} stmt }
+// neu co 1 dau " thi co goi la unclose k ?
