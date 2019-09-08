@@ -1,1 +1,1 @@
-50 abc,<EOF>
+48 abc,<EOF>

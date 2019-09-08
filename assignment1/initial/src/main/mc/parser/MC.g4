@@ -24,9 +24,6 @@ options{
 	language=Python3;
 }
 
-// program  : many_decls? mctype 'main' LB RB LP body? RP EOF ;
-program  : many_decls? mctype 'main' LB RB block_stmt EOF ;
-
 
 // body: funcall SEMI;
 body    
@@ -56,9 +53,6 @@ COMMA: ',';
 WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
 
 
-ERROR_CHAR: [?~`@#$^:\\.'"];
-UNCLOSE_STRING: '"' ('\\' [bfrnt"\\] | ~[\b\f\r\n\t\\"])*;
-ILLEGAL_ESCAPE: '"' ('\\'~[bfnrt"\\] | ~'\\')*;
 
 // Comment
 
@@ -92,9 +86,9 @@ WHILE: 'while';
 
 DO: 'do';
 
-TRUE: 'true';
+fragment TRUE: 'true';
 
-FALSE: 'false';
+fragment FALSE: 'false';
 
 // Operator
 
@@ -148,9 +142,21 @@ BOOLLIT
             | FALSE
             ;
 
+
+ERROR_CHAR: [?~`@#$^:\\.'];
+
+
 STRINGLIT: '"'('\\' [bfrnt"\\] | ~[\b\f\r\n\t\\"])*'"';
 
+
+UNCLOSE_STRING: '"' ('\\' [bfrnt"\\] | ~[\b\f\r\n\t\\"])*;
+ILLEGAL_ESCAPE: '"' ('\\'~[bfnrt"\\] | ~[\\"])*'"';
 ID: [a-zA-Z_][a-zA-Z0-9_]* ;
+
+// program  : many_decls? mctype 'main' LB RB LP body? RP EOF ;
+program  : many_decls? VOIDTYPE 'main' LB RB block_stmt EOF ;
+
+
 
 lit         
             : INTLIT 
@@ -177,7 +183,7 @@ mctype
 // Chua xet truong hop int a [0]
 // con TH int a [b]
 input_ptr_type
-            : primary_type element
+            : primary_type ID LSB RSB
             ;
 
 output_ptr_type
@@ -212,6 +218,7 @@ var
 func_decl
             : mctype ID LB list_params RB block_stmt
             ;
+// con int[] foo(){}
 
 list_params
             : (param_decl (COMMA param_decl)*)?
@@ -219,7 +226,7 @@ list_params
 
 param_decl  
             : primary_type ID
-            | primary_type ID LSB RSB
+            | input_ptr_type
             ;
 
 call_func
@@ -266,14 +273,6 @@ continue_stmt
             : CONTINUE SEMI
             ;
 
-// return_void
-//             : RETURN SEMI
-//             ;
-
-// return_expr
-//             : RETURN expr SEMI
-//             ;
-
 return_stmt
             : RETURN expr? SEMI
             ;
@@ -301,41 +300,70 @@ stmt
 block_stmt
             : LP (stmt|block_stmt)* RP
             ;
-expr   
-            : LB expr RB 
-            | expr1 LSB expr1 RSB
-            | expr1
-            ;
-expr1
-            : <assoc=right>SUB_OP expr1
-            | NOT_OP expr1
-            | expr1 DIV_OP expr1
-            | expr1 MUL_OP expr1
-            | expr1 MODULUS_OP expr1
-            | expr1 ADD_OP expr1
-            | expr1 SUB_OP expr1
-            | expr2 LESS_EQUAL_OP expr2
-            | expr2 LESS_OP expr2
-            | expr2 GREATER_EQUAL_OP expr2
-            | expr2 GREATER_OP expr2
-            | expr2 EQUAL_OP expr2
-            | expr2 NOT_EQUAL_OP expr2
-            | expr2
-            ;
 
-expr2   
-            : expr2 AND_OP expr2
-            | expr2 OR_OP expr2
-            | <assoc=right> expr2 ASSIGN_OP expr
-            | op
-            ;
-op          
-            : call_func
-            | lit 
-            | ID 
-            | element;  
+expr
+                : expr1 ASSIGN_OP expr
+                | expr1
+                ;
+
+expr1           : expr1 OR_OP expr2
+                | expr2
+                ;
+
+expr2
+                : expr2 ASSIGN_OP expr3
+                | expr3
+                ;
+
+expr3
+                : expr4 EQUAL_OP expr4
+                | expr4 NOT_EQUAL_OP expr4
+                | expr4
+                ;
+
+expr4
+                : expr5 LESS_OP expr5
+                | expr5 LESS_EQUAL_OP expr5
+                | expr5 GREATER_EQUAL_OP expr5
+                | expr5 GREATER_OP expr5
+                | expr5
+                ;
+
+expr5
+                : expr5 ADD_OP expr6
+                | expr5 SUB_OP expr6
+                | expr6
+                ;
+
+expr6 
+                : expr6 DIV_OP expr7
+                | expr6 MUL_OP expr7
+                | expr6 MODULUS_OP expr7
+                | expr7
+                ;
+
+expr7
+                : SUB_OP expr7
+                | NOT_OP expr7
+                | expr8
+                ;
+
+expr8
+                : expr9 LSB expr RSB
+                | expr9
+                ;
 
 
+expr9
+                : LB expr RB
+                | expr10
+                ;
 
-// chua check TH (-a + b + (a + 1)) va { stmt { stmt} stmt }
+expr10
+                : call_func
+                | lit
+                | ID
+                | element
+                ;
+
 // neu co 1 dau " thi co goi la unclose k ?

@@ -49,4 +49,8 @@ class LexerSuite(unittest.TestCase):
         
     def test_unclose(self):
         """test integers"""
-        self.assertTrue(TestLexer.checkLexeme("\" \\\\","int, <EOF>",114))
+        self.assertTrue(TestLexer.checkLexeme(""" " \t "  ""","int, <EOF>",114))
+    
+    def test_comment(self):
+        """test integers"""
+        self.assertTrue(TestLexer.checkLexeme(""" "aa \k aa "  ""","int, <EOF>",116))
