@@ -4,20 +4,24 @@ grammar MC;
 from lexererr import *
 }
 
-@lexer::member {
+@lexer::members {
 def emit(self):
     tk = self.type
-    if tk == UNCLOSE_STRING:       
-        result = super.emit();
-        raise UncloseString(result.text);
-    elif tk == ILLEGAL_ESCAPE:
-        result = super.emit();
-        raise IllegalEscape(result.text);
-    elif tk == ERROR_CHAR:
-        result = super.emit();
-        raise ErrorToken(result.text); 
+    if tk == self.UNCLOSE_STRING:       
+        result = super().emit();
+        raise UncloseString(result.text[1:]);
+    elif tk == self.ILLEGAL_ESCAPE:
+        result = super().emit();
+        raise IllegalEscape(result.text[1:]);
+    elif tk == self.ERROR_CHAR:
+        result = super().emit();
+        raise ErrorToken(result.text);
+    elif tk == self.STRINGLIT:
+        result = super().emit();
+        result.text = result.text[1:-1]
+        return result 
     else:
-        return super.emit();
+        return super().emit();
 }
 
 options{
@@ -129,7 +133,7 @@ INTLIT: [0-9]+;
 
 
 fragment Point: '.';
-fragment Exponent: [Ee]('-'?)[1-9][0-9]*;
+fragment Exponent: [Ee]('-'?)[0-9]+;
 FLOATLIT
             : INTLIT Point INTLIT? Exponent?
             | Point INTLIT Exponent?
@@ -143,18 +147,19 @@ BOOLLIT
             ;
 
 
-ERROR_CHAR: [?~`@#$^:\\.'];
-
-
+ERROR_CHAR: [?~`@#$^:.\\'&|];
 STRINGLIT: '"'('\\' [bfrnt"\\] | ~[\b\f\r\n\t\\"])*'"';
+ILLEGAL_ESCAPE: '"' ~[\b\f\r\n\t\\"]* ('\\'~[bfnrt"\\]);
+
+UNCLOSE_STRING: '"' ( '\\' [bfrnt"\\] | ~[\b\f\r\n\t\\"] )*;
 
 
-UNCLOSE_STRING: '"' ('\\' [bfrnt"\\] | ~[\b\f\r\n\t\\"])*;
-ILLEGAL_ESCAPE: '"' ('\\'~[bfnrt"\\] | ~[\\"])*'"';
+
+
 ID: [a-zA-Z_][a-zA-Z0-9_]* ;
 
 // program  : many_decls? mctype 'main' LB RB LP body? RP EOF ;
-program  : many_decls? VOIDTYPE 'main' LB RB block_stmt EOF ;
+program  : many_decls+ EOF ;
 
 
 
@@ -290,6 +295,7 @@ other
             | continue_stmt
             | return_stmt
             | expr_stmt
+            | block_stmt
             ;
 
 stmt
@@ -298,7 +304,8 @@ stmt
             ;
 
 block_stmt
-            : LP (stmt|block_stmt)* RP
+            : LP (stmt)* RP
+            | LP RP
             ;
 
 expr

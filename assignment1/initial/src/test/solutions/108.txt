@@ -1,1 +1,1 @@
-45 "Hello \n world",<EOF>
+Error Token |

@@ -40,7 +40,7 @@ class TestLexer:
         tok = lexer.nextToken()
         if tok.type != Token.EOF:
             # dest.write(tok.text+",")
-            dest.write(str(tok.type)+" "+tok.text+",")
+            dest.write(tok.text+",")
             TestLexer.printLexeme(dest,lexer)
         else:
             dest.write("<EOF>")
