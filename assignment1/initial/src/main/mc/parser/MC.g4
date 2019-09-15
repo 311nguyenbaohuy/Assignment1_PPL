@@ -154,12 +154,10 @@ ILLEGAL_ESCAPE: '"' ~[\b\f\r\n\t\\"]* ('\\'~[bfnrt"\\]);
 UNCLOSE_STRING: '"' ( '\\' [bfrnt"\\] | ~[\b\f\r\n\t\\"] )*;
 
 
-
-
 ID: [a-zA-Z_][a-zA-Z0-9_]* ;
 
 // program  : many_decls? mctype 'main' LB RB LP body? RP EOF ;
-program  : many_decls+ EOF ;
+program  : many_decls EOF ;
 
 
 
@@ -201,7 +199,7 @@ element
 
 
 many_decls 
-            : decl (decl)*
+            : (decl)+
             ;
 
 decl
@@ -318,40 +316,32 @@ expr1           : expr1 OR_OP expr2
                 ;
 
 expr2
-                : expr2 ASSIGN_OP expr3
+                : expr2 AND_OP expr3
                 | expr3
                 ;
 
 expr3
-                : expr4 EQUAL_OP expr4
-                | expr4 NOT_EQUAL_OP expr4
+                : expr4 (EQUAL_OP | NOT_EQUAL_OP) expr4
                 | expr4
                 ;
 
 expr4
-                : expr5 LESS_OP expr5
-                | expr5 LESS_EQUAL_OP expr5
-                | expr5 GREATER_EQUAL_OP expr5
-                | expr5 GREATER_OP expr5
+                : expr5 (LESS_OP | LESS_EQUAL_OP | GREATER_EQUAL_OP | GREATER_OP) expr5
                 | expr5
                 ;
 
 expr5
-                : expr5 ADD_OP expr6
-                | expr5 SUB_OP expr6
+                : expr5 (ADD_OP | SUB_OP) expr6
                 | expr6
                 ;
 
 expr6 
-                : expr6 DIV_OP expr7
-                | expr6 MUL_OP expr7
-                | expr6 MODULUS_OP expr7
+                : expr6 (DIV_OP | MUL_OP | MODULUS_OP) expr7
                 | expr7
                 ;
 
 expr7
-                : SUB_OP expr7
-                | NOT_OP expr7
+                : (SUB_OP |NOT_OP) expr7
                 | expr8
                 ;
 
@@ -372,5 +362,7 @@ expr10
                 | ID
                 | element
                 ;
+
+
 
 // neu co 1 dau " thi co goi la unclose k ?

@@ -1,0 +1,7 @@
+
+        boolean test()
+            {
+                boolean b;
+                b=((a && b)|| (a>=c) ||(d==e) || (a!=3));
+            }
+        
