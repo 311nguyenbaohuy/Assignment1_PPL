@@ -244,21 +244,25 @@ func_stmt
             : call_func SEMI
             ;
 
+// if_stmt
+//             : match_stmt 
+//             | unmatch_stmt
+//             ;
+
+// match_stmt 
+//             : IF LB expr RB match_stmt ELSE match_stmt
+//             | other 
+//             ;
+
+// unmatch_stmt
+//             : IF LB expr RB match_stmt ELSE unmatch_stmt
+//             | IF LB expr RB stmt
+//             | other
+//             ;
+
 if_stmt
-            : match_stmt 
-            | unmatch_stmt
-            ;
-
-match_stmt 
-            : IF LB expr RB match_stmt ELSE match_stmt
-            | other 
-            ;
-
-unmatch_stmt
-            : IF LB expr RB match_stmt ELSE unmatch_stmt
-            | IF LB expr RB stmt
-            | other
-            ;
+                : IF LB expr RB stmt (ELSE stmt)?
+                ;
 
 do_while_stmt
             : DO (stmt)+ WHILE expr SEMI
@@ -297,8 +301,8 @@ other
             ;
 
 stmt
-            : other
-            | if_stmt       
+            : if_stmt
+            | other       
             ;
 
 block_stmt

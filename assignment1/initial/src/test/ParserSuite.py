@@ -22,10 +22,10 @@ class ParserSuite(unittest.TestCase):
         expect = "Error on line 1 col 11: {"
         self.assertTrue(TestParser.checkParser(input,expect,203))
 
-    # def test_if(self):
-    #     input = """void main( ){ if (a) if (b) if (c) a; else a; else }"""
-    #     expect = "sucessful"
-    #     self.assertTrue(TestParser.checkParser(input,expect,204))
+    def test_if(self):
+        input = """void main( ){ if (a) if (b) if (c) a; else a; else }"""
+        expect = "Error on line 1 col 51: }"
+        self.assertTrue(TestParser.checkParser(input,expect,204))
 
     def test_expression_No57(self):
         """expression statement"""

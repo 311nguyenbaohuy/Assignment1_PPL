@@ -109,16 +109,6 @@ class MCVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MCParser#match_stmt.
-    def visitMatch_stmt(self, ctx:MCParser.Match_stmtContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MCParser#unmatch_stmt.
-    def visitUnmatch_stmt(self, ctx:MCParser.Unmatch_stmtContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by MCParser#do_while_stmt.
     def visitDo_while_stmt(self, ctx:MCParser.Do_while_stmtContext):
         return self.visitChildren(ctx)
