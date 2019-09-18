@@ -1,0 +1,6 @@
+
+        int a[1], b, c; 
+        int main(){
+            a = 10; // OK   
+        }
+        

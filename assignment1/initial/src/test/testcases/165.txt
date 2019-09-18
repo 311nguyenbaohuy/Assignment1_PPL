@@ -1,0 +1,5 @@
+void
+main(){//this is comment
+	str= "String is beautify\f";
+	str$column <- str$age + 2;
+}

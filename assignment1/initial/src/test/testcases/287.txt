@@ -1,0 +1,7 @@
+boolean b;
+        void main(){
+            if(b = 5<=a>=10){
+                print("Awesome!!!!!
+");
+            }
+        }

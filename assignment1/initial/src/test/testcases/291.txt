@@ -1,0 +1,7 @@
+
+        void main(){
+            int a;
+            a = input("a =");
+            string arr[a*a];
+        }
+        

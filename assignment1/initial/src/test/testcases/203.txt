@@ -1,1 +1,6 @@
-void main( {}
+
+        int main[3];
+        void main(){
+            a[foo(a[a])] = foo;
+            return main;
+        }

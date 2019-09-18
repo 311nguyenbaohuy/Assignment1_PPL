@@ -1,0 +1,7 @@
+
+        void main(){
+            for(i = 0; i == 2 == b == c; i = i+1){
+                print("Nothing");
+            }
+        }
+        

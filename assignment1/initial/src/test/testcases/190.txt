@@ -1,0 +1,1 @@
+if (_a_ == 1) return a; 

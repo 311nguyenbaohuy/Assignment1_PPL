@@ -1,0 +1,8 @@
+
+        void foo(void a){
+            print("Awesome");
+        }
+        void main(){
+            foo();
+        }
+        

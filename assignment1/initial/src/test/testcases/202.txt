@@ -1,3 +1,6 @@
-void main () {
-            putIntLn(4);
+
+        int main;
+        main = 1;
+        void main(){
+            return main;
         }

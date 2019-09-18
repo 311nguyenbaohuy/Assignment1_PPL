@@ -9,11 +9,6 @@ else:
 
 class MCVisitor(ParseTreeVisitor):
 
-    # Visit a parse tree produced by MCParser#body.
-    def visitBody(self, ctx:MCParser.BodyContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by MCParser#program.
     def visitProgram(self, ctx:MCParser.ProgramContext):
         return self.visitChildren(ctx)
@@ -136,11 +131,6 @@ class MCVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by MCParser#expr_stmt.
     def visitExpr_stmt(self, ctx:MCParser.Expr_stmtContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MCParser#other.
-    def visitOther(self, ctx:MCParser.OtherContext):
         return self.visitChildren(ctx)
 
 

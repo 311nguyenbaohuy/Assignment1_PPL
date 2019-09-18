@@ -1,0 +1,6 @@
+
+        void main(){
+            boolean a;
+            a = 5<a>6;
+        }
+        

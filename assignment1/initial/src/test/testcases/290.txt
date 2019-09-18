@@ -1,0 +1,7 @@
+
+        void main(){
+            if( a!=c[1] > 6{
+                print("Awsomw!!!!");
+            }
+        }
+        

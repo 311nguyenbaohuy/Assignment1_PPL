@@ -1,0 +1,12 @@
+
+        int a[1], b, c; 
+        int main(){
+            if ( a || 1)
+                do {
+                    a;
+                }
+                { }
+                while (1);
+            else{ }
+        }
+        

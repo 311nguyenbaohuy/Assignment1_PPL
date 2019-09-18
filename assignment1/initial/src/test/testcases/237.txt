@@ -1,0 +1,8 @@
+
+        int a[1], b, c; 
+        int main(){
+            for (true; false; true){
+                true;
+            }
+        }
+        

@@ -1,0 +1,10 @@
+
+        float a;
+        boolean b;
+        string a[0];
+        
+        float main(){
+            a = 1;
+            b = false;
+            b = true;
+        }

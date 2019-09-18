@@ -1,0 +1,6 @@
+
+        int a[1], b, c; 
+        int main(){
+               a = ((a - b) * c || e1 - b )|| d * c;   
+        }
+        

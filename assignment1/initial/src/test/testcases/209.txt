@@ -1,0 +1,9 @@
+
+        int a[000];
+        string main(){
+            // comment 
+            /* @author: 
+            */
+            a = ((1+2) / 3) * a[1-(1+2)*3];
+        }
+        

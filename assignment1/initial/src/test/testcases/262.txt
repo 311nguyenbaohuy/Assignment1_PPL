@@ -1,0 +1,6 @@
+
+        int foo(){
+            do 
+            while(1);
+        }         
+        

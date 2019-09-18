@@ -1,0 +1,6 @@
+
+        int main(){ 
+            if (1) printf("%d", c);
+            else print("d");
+        }
+        

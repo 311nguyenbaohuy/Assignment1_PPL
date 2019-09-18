@@ -1,0 +1,21 @@
+
+        void main()
+        {
+            /*
+            *this is comment block
+            *will ignore when compline
+            */
+            int n, i;
+            print("Enter n > 0: ");
+            input(n);
+            printf("Factors of", number, ": \n");
+            for(i=1; i <= number; i = i +1 )
+            {
+                if (number%i == 0)
+                {
+                    printf(i, " ");
+                }
+            }
+            return 0;
+        }
+        

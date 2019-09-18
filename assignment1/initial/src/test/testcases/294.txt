@@ -1,0 +1,7 @@
+
+        void main(){
+            void a;
+            a ="String";
+            print(a);
+        }
+        

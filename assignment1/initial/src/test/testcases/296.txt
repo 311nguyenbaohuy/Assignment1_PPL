@@ -1,0 +1,7 @@
+
+        void main(){
+            string str;
+            str = "Awesome";
+            print("awesome".len);
+        }
+        

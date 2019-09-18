@@ -1,0 +1,7 @@
+
+        int main(){ 
+            for (i; i < 10; foo(2)[1+x*(1/2)]/3)
+                if (a){{}a;{}}
+                else {b;}
+        }
+        

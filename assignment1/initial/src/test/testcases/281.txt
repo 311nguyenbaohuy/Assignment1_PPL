@@ -1,0 +1,9 @@
+
+        void main(){
+            if(a<b<c){
+                int a;
+                a = 5;
+                print(a, 10);
+            }
+        }
+        

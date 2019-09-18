@@ -1,0 +1,14 @@
+
+        int main(){ 
+            if (a != 1){
+                {
+                    if (a = 1){
+                        { }
+                    }
+                    else a;
+                }
+            }
+            else { //if }
+            }
+        }
+        

@@ -1,0 +1,6 @@
+
+        void main(){
+            boolean b;
+            b = a>b>c>d || a >b && c>d;
+        }
+        

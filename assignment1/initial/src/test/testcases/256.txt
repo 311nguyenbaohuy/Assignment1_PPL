@@ -1,0 +1,7 @@
+
+        void main (){
+            for (i; 1; fasle){
+                "abc"[1] = 1;
+            }
+        }
+        

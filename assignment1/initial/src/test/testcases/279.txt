@@ -1,0 +1,8 @@
+
+        void main(){
+            do{
+                int i;
+                i = 0;
+            }while( a != b != c == 1);
+        }
+        

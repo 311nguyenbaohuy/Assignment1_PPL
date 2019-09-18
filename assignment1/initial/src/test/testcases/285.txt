@@ -1,0 +1,7 @@
+
+        void main(){
+            do{
+                print("Awesome");
+            }while(5<=a<6 && true);
+        }
+        

@@ -1,0 +1,10 @@
+
+        void main(){
+            int main;
+            if(main)
+                print("ABC");
+            elif (main == false)
+                print("Awesome!!!')
+            return;
+        }
+        

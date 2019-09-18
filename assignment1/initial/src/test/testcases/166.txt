@@ -1,0 +1,17 @@
+
+        package hienthi;
+
+        import inso.InSo;
+
+        public class UseThread{
+            public static void main(String[] args) {
+                
+                InSo insochan = new InSo(true);
+                Thread thread_chan = new Thread(insochan);
+                thread_chan.start();
+
+                InSo insole = new InSo(false);
+                Thread thread_le = new Thread(insole);
+                thread_le.start();
+            }
+        }

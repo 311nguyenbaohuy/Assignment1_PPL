@@ -1,0 +1,6 @@
+int main() {
+                //commnet
+                /* 
+                */
+                printf("Hello world!");
+        }

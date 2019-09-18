@@ -1,0 +1,6 @@
+
+        string foo(int[] i, string r){
+            foreach(i, println);
+            return "magic";
+        }
+        
