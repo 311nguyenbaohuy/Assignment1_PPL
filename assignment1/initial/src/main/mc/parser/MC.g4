@@ -31,8 +31,6 @@ options{
 
 program  : many_decls EOF ;
 
-
-
 lit         
             : INTLIT 
             | FLOATLIT 
@@ -149,7 +147,6 @@ stmt
 
 block_stmt
             : LP (stmt | var_decl )* RP
-            | LP RP
             ;
 
 expr

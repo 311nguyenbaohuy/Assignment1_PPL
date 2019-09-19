@@ -71,10 +71,10 @@ class ParserSuite(unittest.TestCase):
         input = """
         string main(){
             // comment 
-            /* @author:
+            /* @author
         }
         """
-        expect = "@"
+        expect = "Error on line 4 col 12: /"
         self.assertTrue(TestParser.checkParser(input,expect,208))
 
     def test9(self):

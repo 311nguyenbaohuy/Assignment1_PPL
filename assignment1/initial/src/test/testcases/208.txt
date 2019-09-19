@@ -1,6 +1,6 @@
 
         string main(){
             // comment 
-            /* @author:
+            /* @author
         }
         

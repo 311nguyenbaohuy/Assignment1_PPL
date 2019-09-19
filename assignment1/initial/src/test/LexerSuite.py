@@ -205,7 +205,8 @@ class LexerSuite(unittest.TestCase):
     
     def test_unclosed_string3(sefl):
         """test unclosed string3"""
-        testcase = """ "hello world\t " """
+        testcase = """ "hello world
+                        " """
         expect = "Unclosed String: hello world"
         sefl.assertTrue(TestLexer.checkLexeme(testcase, expect, 133))
 
@@ -461,13 +462,13 @@ class LexerSuite(unittest.TestCase):
 
     def test72(sefl):
         """test72"""
-        testcase = """abc_abc = "abc\b """
-        expect = """abc_abc,=,Unclosed String: abc"""
+        testcase = """abc_abc = "abc """
+        expect = """abc_abc,=,Unclosed String: abc """
         sefl.assertTrue(TestLexer.checkLexeme(testcase, expect, 172))
 
     def test73(sefl):
         """test73"""
-        testcase = """ "abc@\b" """
+        testcase = """ "abc@\n" """
         expect = """Unclosed String: abc@"""
         sefl.assertTrue(TestLexer.checkLexeme(testcase, expect, 173))
 
@@ -561,7 +562,7 @@ class LexerSuite(unittest.TestCase):
 
     def test88(sefl):
         """test88"""
-        testcase = """string str = "\b"""
+        testcase = """string str = "\n"""
         expect = """string,str,=,Unclosed String: """
         sefl.assertTrue(TestLexer.checkLexeme(testcase, expect, 188))
 
