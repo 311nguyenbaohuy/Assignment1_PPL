@@ -1,7 +1,11 @@
 
         void main(){
-            string str;
-            str = "Awesome";
-            print("awesome".len);
+            int i;
+            if (a > b != c / d && e)
+                main();
+        }
+        
+        void main(){
+            // do something
         }
         

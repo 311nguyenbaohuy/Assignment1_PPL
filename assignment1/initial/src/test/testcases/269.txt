@@ -1,7 +1,6 @@
 
-        void main(){
-            do{
-                int array[];
-            }while(true);
-        }
+        int[] foo(int a, string b, float c){
+            int a [1.2];
+            a[0] = 0;
+        }         
         

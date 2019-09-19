@@ -1,6 +1,6 @@
 
+        int main(){ }
+        int foo(){ }
         void main(){
-            a = -a-b&&;
-            print("Wrong");
         }
         

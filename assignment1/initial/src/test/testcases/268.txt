@@ -1,8 +1,6 @@
 
-        void main(){
-            do{
-                print("Hello");
-            }while ;
-            return;
-        }
+        int foo(int a, string b, float c){
+            int a [1];
+            a[2] = 0;
+        }         
         

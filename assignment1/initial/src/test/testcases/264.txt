@@ -1,9 +1,10 @@
 
-        void main(){
-            if(true)
-                if (false)
-                    i = i+ 1;
+        int foo(){
+            do
+                if (main)
+                    reutr;
                 else
-            
-        }
+                    reutnr;
+            while(main);
+        }         
         

@@ -1,7 +1,7 @@
 
         void main(){
-            if(a == c != d){
-                print("Awesome!!!");
-            }
+            a = 1.e0[_abc_] + "abc";
+           do{{ if (a>0) a;}} while (a>0);
+           
         }
         

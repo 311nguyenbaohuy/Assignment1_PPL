@@ -1,6 +1,5 @@
 
         void main(){
-            print("Hello World");
-            ?
+            a / b + (c * d)[a / b];
         }
         

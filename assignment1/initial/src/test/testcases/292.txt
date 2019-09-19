@@ -1,6 +1,10 @@
 
-        string foo(int[] i, string r){
-            foreach(i, println);
-            return "magic";
+        // check a number is prime number
+        boolean isPrimeNumber(int num){ }
+
+        void main(){
+            int i;
+            for (i = 1; i < 10; i = i + 1)
+                print (isPrimeNumber(i));
         }
         

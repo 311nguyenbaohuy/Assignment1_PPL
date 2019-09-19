@@ -1,7 +1,5 @@
 
         void main(){
-            yo{
-                print("Awesome@!!!!");
-            } while(true);
+            a > b == c;
         }
         

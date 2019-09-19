@@ -1,7 +1,7 @@
-boolean b;
+
+        int main(){ }
+        int foo(){ }
         void main(){
-            if(b = 5<=a>=10){
-                print("Awesome!!!!!
-");
-            }
+            int main, string main;
         }
+        

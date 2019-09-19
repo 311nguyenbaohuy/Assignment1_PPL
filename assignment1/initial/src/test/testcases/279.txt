@@ -1,8 +1,10 @@
 
         void main(){
-            do{
-                int i;
-                i = 0;
-            }while( a != b != c == 1);
+            if (1.2e1){
+
+            }
+            else{
+                1;2;3;"abc";1abc1
+            }
         }
         

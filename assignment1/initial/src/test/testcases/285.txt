@@ -1,7 +1,6 @@
 
-        void main(){
-            do{
-                print("Awesome");
-            }while(5<=a<6 && true);
+        int main()
+        {
+            a = ((a || b) + (a % d))/ 2 * (a+(b -c)
         }
         

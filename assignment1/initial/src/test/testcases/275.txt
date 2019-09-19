@@ -1,7 +1,5 @@
 
         void main(){
-            if("a" == "a"){
-                print("Awsome!!!!)
-            }
+            a > !"abc";
         }
         

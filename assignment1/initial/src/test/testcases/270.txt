@@ -1,9 +1,7 @@
 
-        void main(){
-            if(){
-                print("Hello");
-            }else{
-                print("Awesome");
-            }
+        int[] foo(int a, string b, float c){
+        }         
+        string [] foo(int a[]){
+
         }
         

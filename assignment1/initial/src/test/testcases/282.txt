@@ -1,6 +1,13 @@
 
-         void main(){
-            if(a<=b<=c){
-                print("Hello Wrong");
-            }
+        int main()
+        {
+            if (a) 
+                if (b)
+                    if (c)
+                        if (d) E;
+                    else(c);
+                else(d);
+            else(a);
+
+        }
         

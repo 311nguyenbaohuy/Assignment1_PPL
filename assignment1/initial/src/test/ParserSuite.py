@@ -703,3 +703,456 @@ class ParserSuite(unittest.TestCase):
         """
         expect = "Error on line 4 col 12: while"
         self.assertTrue(TestParser.checkParser(input,expect,262))
+
+    def test63(self):
+        input = """
+        int foo(){
+            do
+                for ("a"; "b"; "c")
+                    retunr;
+            while(main);
+        }         
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,263))
+
+    def test64(self):
+        input = """
+        int foo(){
+            do
+                if (main)
+                    reutr;
+                else
+                    reutnr;
+            while(main);
+        }         
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,264))
+
+    def test65(self):
+        input = """
+        int foo(){
+            do
+                continue;
+            while(main);
+        }         
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,265))
+
+
+    def test66(self):
+        input = """
+        int foo(){
+            do
+                break;
+            while(main);
+        }         
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,266))
+
+
+    def test67(self):
+        input = """
+        int foo(){
+            i = 1;
+            int i;
+            {
+                i = 1;
+            }
+        }         
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,267))
+
+    def test68(self):
+        input = """
+        int foo(int a, string b, float c){
+            int a [1];
+            a[2] = 0;
+        }         
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,268))
+
+    def test69(self):
+        input = """
+        int[] foo(int a, string b, float c){
+            int a [1.2];
+            a[0] = 0;
+        }         
+        """
+        expect = "Error on line 3 col 19: 1.2"
+        self.assertTrue(TestParser.checkParser(input,expect,269))
+    
+    def test70(self):
+        input = """
+        int[] foo(int a, string b, float c){
+        }         
+        string [] foo(int a[]){
+
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,270))
+
+    def test71(self):
+        input = """
+        void[] main(){
+
+        }
+        """
+        expect = "Error on line 2 col 12: ["
+        self.assertTrue(TestParser.checkParser(input,expect,271))
+    
+    def test72(self):
+        input = """
+        void main(){
+            a > b == c;
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,272))
+    
+    def test73(self):
+        input = """
+        void main(){
+            a > b > "abc";
+        }
+        """
+        expect = "Error on line 3 col 18: >"
+        self.assertTrue(TestParser.checkParser(input,expect,273))
+
+    def test74(self):
+        input = """
+        void main(){
+            a > b <= "abc";
+        }
+        """
+        expect = "Error on line 3 col 18: <="
+        self.assertTrue(TestParser.checkParser(input,expect,274))
+    
+    def test75(self):
+        input = """
+        void main(){
+            a > !"abc";
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,275))
+    
+    def test76(self):
+        input = """
+        void main(){
+            a / b + (c * d)[a / b];
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,276))
+
+    def test77(self):
+        input = """
+        void main(){
+            if (a > b){
+                if (b > c){
+
+                }
+                else{
+
+                }
+            }
+            else(12);
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,277))
+
+    def test78(self):
+        input = """
+        void main(){
+            int _, b, c;
+            _ = 1;
+            for (1;1;1){
+                do{}{} while(1);
+            }
+            if(a) for(1;1;1){}
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,278))
+
+    def test79(self):
+        input = """
+        void main(){
+            if (1.2e1){
+
+            }
+            else{
+                1;2;3;"abc";1abc1
+            }
+        }
+        """
+        expect = "Error on line 7 col 29: abc1"
+        self.assertTrue(TestParser.checkParser(input,expect,279))
+    
+    def test80(self):
+        input = """
+        void main(){
+            a = 1.e0[_abc_] + "abc";
+           do{{ if (a>0) a;}} while (a>0);
+           
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,280))
+
+    def test81(self):
+        input = """
+        {
+            int main;
+        }
+        """
+        expect = "Error on line 2 col 8: {"
+        self.assertTrue(TestParser.checkParser(input,expect,281))
+    
+    def test82(self):
+        input = """
+        int main()
+        {
+            if (a) 
+                if (b)
+                    if (c)
+                        if (d) E;
+                    else(c);
+                else(d);
+            else(a);
+
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,282))
+    
+    def test83(self):
+        input = """
+        int main()
+        {
+            if (a) 
+                if (b)
+                    if (c)
+                        if (d) E;
+                    else print("a");
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,283))
+    
+    def test84(self):
+        input = """
+        int main()
+        {
+           do { } { }
+           while(a||b + c && c -a); 
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,284))
+    
+    def test85(self):
+        input = """
+        int main()
+        {
+            a = ((a || b) + (a % d))/ 2 * (a+(b -c)
+        }
+        """
+        expect = "Error on line 5 col 8: }"
+        self.assertTrue(TestParser.checkParser(input,expect,285))
+    
+    def test86(self):
+        input = """
+        int main()
+        {
+            for (int i = 0; i < 10; i++){
+                print(i);
+            }
+        }
+        """
+        expect = "Error on line 4 col 17: int"
+        self.assertTrue(TestParser.checkParser(input,expect,286))
+    
+    def test87(self):
+        input = """
+        int main(){ }
+        int foo(){ }
+        void main(){
+            int main, string main;
+        }
+        """
+        expect = "Error on line 5 col 22: string"
+        self.assertTrue(TestParser.checkParser(input,expect,287))
+
+    def test88(self):
+        input = """
+        void main(){
+            do
+                for (1;1;1){
+                    do
+                        for (1;1;1){}
+                    while(1);
+                }
+                { }
+            while(1);
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,288))
+
+    def test89(self):
+        input = """
+        int main(){ }
+        int foo(){ }
+        void main(){
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,289))
+    
+    def test90(self):
+        input = """
+        void main(){
+            int (a [1])[2];
+        }
+        """
+        expect = "Error on line 3 col 16: ("
+        self.assertTrue(TestParser.checkParser(input,expect,290))
+
+    def test91(self):
+        input = """
+        void main(){
+            int (a [1])[2];
+        }
+        """
+        expect = "Error on line 3 col 16: ("
+        self.assertTrue(TestParser.checkParser(input,expect,291))
+
+    def test92(self):
+        input = """
+        // check a number is prime number
+        boolean isPrimeNumber(int num){ }
+
+        void main(){
+            int i;
+            for (i = 1; i < 10; i = i + 1)
+                print (isPrimeNumber(i));
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,292))
+
+    def test93(self):
+        input = """
+        /* this function is used to ... 
+         * ...
+         */
+        string upper (string a){}
+        string arrStr [10];
+
+        void main(){
+            int i;
+            for (i = 1; i < 10; i = i + 1)
+                print (upper(arrStr[i]));
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,293))
+
+    def test94(self):
+        input = """
+        void matrix[10];
+
+        void main(){
+            int i;
+            for (i = 1; i < 10; i = i + 1)
+        }
+        """
+        expect = "Error on line 2 col 19: ["
+        self.assertTrue(TestParser.checkParser(input,expect,294))
+
+    def test95(self):
+        input = """
+        void matrix();
+
+        void main(){
+            int i;
+            for (i = 1; i < 10; i = i + 1)
+        }
+        
+        void matrix(){
+            // do something
+        }
+        """
+        expect = "Error on line 2 col 21: ;"
+        self.assertTrue(TestParser.checkParser(input,expect,295))
+    
+    def test96(self):
+        input = """
+        void main(){
+            int i;
+            if (a > b != c / d && e)
+                main();
+        }
+        
+        void main(){
+            // do something
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,296))
+    
+    def test97(self):
+        input = """
+        if (a > 10) {
+            print (a);
+        }
+        """
+        expect = "Error on line 2 col 8: if"
+        self.assertTrue(TestParser.checkParser(input,expect,297))
+    
+
+    def test98(self):
+        input = """
+        boolean main(){
+
+        }
+        if (a > 10) {
+            print (a);
+        }
+        """
+        expect = "Error on line 5 col 8: if"
+        self.assertTrue(TestParser.checkParser(input,expect,298))
+
+
+    def test99(self):
+        input = """
+        boolean main[10];
+        void main(){
+            do {
+                // something
+                i = i + 1;
+            }
+            while (main[i]);
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,299))
+
+    def test100(self):
+        input = """
+        void main(){
+            do main > 0;
+            while (main > 0); 
+        }
+        """
+        expect = "successful"
+        self.assertTrue(TestParser.checkParser(input,expect,300))

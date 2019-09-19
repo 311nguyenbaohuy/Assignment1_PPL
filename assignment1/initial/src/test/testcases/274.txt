@@ -1,7 +1,5 @@
 
         void main(){
-            if(a != b){
-                str = "Handsome\g";
-            }
+            a > b <= "abc";
         }
         

@@ -29,9 +29,6 @@ options{
 	language=Python3;
 }
 
-
-
-// program  : many_decls? mctype 'main' LB RB LP body? RP EOF ;
 program  : many_decls EOF ;
 
 
@@ -56,10 +53,6 @@ mctype
             | output_ptr_type
             ;
 
-
-
-// Chua xet truong hop int a [0]
-// con TH int a [b]
 input_ptr_type
             : primary_type ID LSB RSB
             ;
@@ -96,8 +89,7 @@ var
 func_decl
             : mctype ID LB list_params RB block_stmt
             ;
-// con int[] foo(){}
-
+ 
 list_params
             : (param_decl (COMMA param_decl)*)?
             ;
