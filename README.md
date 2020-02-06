@@ -1,3 +1,3 @@
 # PPL-Ass1
 
-THIS IS MY PPL - ASSIGNMENT 1 SOLUTION IN SEMESTER 191 OF HCMUT.
+This assginment requires to write Lexer and Parser using ANTLR
